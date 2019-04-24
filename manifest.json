@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "contextCurrencyConverter",
+  "version": "1.0",
+  "description": "Currency Converter",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["getSel.js"]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "jquery-3.4.0.min.js",
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "storage",
+    "declarativeContent",
+    "tabs",
+    "contextMenus",
+    "<all_urls>",
+    "activeTab"
+  ]
+}
