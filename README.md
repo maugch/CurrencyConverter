@@ -1,5 +1,7 @@
 # currency Converter
 
+tests:
+
 100 EUR
 100k EUR
 AUD 100
