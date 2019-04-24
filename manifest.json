@@ -18,7 +18,6 @@
   },
   "permissions": [
     "storage",
-    "declarativeContent",
     "tabs",
     "contextMenus",
     "<all_urls>",

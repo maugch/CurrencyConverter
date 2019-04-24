@@ -1,22 +1,4 @@
 
-var rates = ''
-$.ajax({
-    url: 'https://api.exchangeratesapi.io/latest?base=USD',
-
-    type: "GET",
-    dataType: 'json',
-    crossDomain: true,
-    success: function (data) {
-        console.log(JSON.stringify(data));
-        rates = data;
-    },
-    error: function (data, errorThrown) {
-        console.log(errorThrown);
-    }
-});
-
-
-
 function convertValue(text) {
     text = text.trim();
     var nochar = text.replace(/\D/g, '');
@@ -29,7 +11,7 @@ function convertValue(text) {
         var rate = rates['rates']['EUR']
         rate = parseFloat(rate);
         return text + ' = ' + Math.round(fvalue / rate,2) + ' USD';
-    } else if (text.startsWith("AUD$")) {
+    } else if (text.startsWith("AUD$") || text.startsWithy("AUD")) {
         var rate = rates['rates']['AUD']
         rate = parseFloat(rate);
     } else if (text.endsWith('NZD')) {
@@ -86,5 +68,21 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 chrome.contextMenus.onClicked.addListener(onClickHandler);
             }
         }
+    }
+});
+
+var rates = ''
+$.ajax({
+    url: 'https://api.exchangeratesapi.io/latest?base=USD',
+
+    type: "GET",
+    dataType: 'json',
+    crossDomain: true,
+    success: function (data) {
+        console.log(JSON.stringify(data));
+        rates = data;
+    },
+    error: function (data, errorThrown) {
+        console.log(errorThrown);
     }
 });
