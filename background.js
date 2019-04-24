@@ -7,16 +7,19 @@ function convertValue(text) {
     if (textlist.length > 2 && ( textlist[0].endsWith('k') || textlist[0].endsWith('K'))) {
         fvalue = fvalue*1000;
     }
+    var rate = '';
     if (text.endsWith('EUR')) {
-        var rate = rates['rates']['EUR']
+        rate = rates['rates']['EUR']
         rate = parseFloat(rate);
-        return text + ' = ' + Math.round(fvalue / rate,2) + ' USD';
-    } else if (text.startsWith("AUD$") || text.startsWithy("AUD")) {
-        var rate = rates['rates']['AUD']
+        
+    } else if (text.startsWith("AUD$") || text.startsWith("AUD")) {
+        rate = rates['rates']['AUD']
         rate = parseFloat(rate);
     } else if (text.endsWith('NZD')) {
-        var rate = rates['rates']['NZD']
+        rate = rates['rates']['NZD']
         rate = parseFloat(rate);
+    }
+    if (rate != '') {
         return text + ' = ' + Math.round(fvalue / rate,2) + ' USD';
     }
     return text + ' unknown'; 
