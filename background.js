@@ -25,8 +25,6 @@ function convertValue(text) {
     return text + ' unknown'; 
 }
 
-
-
 // "activeTab" permission is sufficient for this:
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
     chrome.tabs.executeScript(tab.id, { file: "getSel.js" })
