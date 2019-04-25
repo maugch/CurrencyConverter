@@ -1,26 +1,33 @@
+function mycheck(text,currencylist) {
+    for (curr in currencylist) {
+        if (text.startsWith(curr)|| text.endsWith(curr)) {
+            return true
+        }
+    }
+    return false
+}
 
 function convertValue(text) {
     text = text.trim();
     var nochar = text.replace(/\D/g, '');
     var fvalue = parseFloat(nochar);
     var textlist = text.split(' ');
-    if (textlist.length > 2 && ( textlist[0].endsWith('k') || textlist[0].endsWith('K'))) {
+    if (textlist.length >= 2 && ( textlist[0].endsWith('k') || textlist[0].endsWith('K'))) {
         fvalue = fvalue*1000;
     }
     var rate = '';
-    if (text.endsWith('EUR')) {
+    if (mycheck(text,['EUR'])) {
         rate = rates['rates']['EUR']
         rate = parseFloat(rate);
-        
-    } else if (text.startsWith("AUD$") || text.startsWith("AUD")) {
+    } else if (mycheck(text,['AUD$','AUD'])) {
         rate = rates['rates']['AUD']
         rate = parseFloat(rate);
-    } else if (text.endsWith('NZD')) {
+    } else if (mycheck(text,['NZD'])) {
         rate = rates['rates']['NZD']
         rate = parseFloat(rate);
     }
     if (rate != '') {
-        return text + ' = ' + Math.round(fvalue / rate,2) + ' USD';
+        return text + ' = ' + Math.round(fvalue / rate,2) + ' USD'+fvalue;
     }
     return text + ' unknown'; 
 }
@@ -30,10 +37,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     chrome.tabs.executeScript(tab.id, { file: "getSel.js" })
 });
 
-/*
+
 // ID to manage the context menu entry
 var cmid;
-
+/*  
 // The onClicked callback function.
 function onClickHandler(info, tab) {
     var sText = info.selectionText;
@@ -66,7 +73,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             } else {
                 // Create new menu, and remember the ID
                 cmid = chrome.contextMenus.create(createOptions);
-                chrome.contextMenus.onClicked.addListener(onClickHandler);
+                //chrome.contextMenus.onClicked.addListener(onClickHandler);
             }
         }
     }
