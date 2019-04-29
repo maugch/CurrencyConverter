@@ -1,4 +1,6 @@
 # currency Converter
+Select a currency+amount on a webpage and see its value in USD.
+
 
 tests:
 100EUR
